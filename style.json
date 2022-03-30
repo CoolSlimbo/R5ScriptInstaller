@@ -1,0 +1,20 @@
+{
+    "genInfo": {
+        "name": "kwingman",
+        "author": "author",
+        "download": "http://download1488.mediafire.com/thtybrsxgzvg/uh9cmb3ucjo1nlx/77d2f48882bd8fe5205cfdbca9bc251b.zip"
+    },
+    "files": {
+        "file1": {
+            "fileName": "test",
+            "location": "starts with platform, then to the rest of the structure",
+            "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field",
+            "custom": {
+                "name": "name of the file to append to",
+                "location": "starts with platform, then to the rest of the structure",
+                "from": "where does it append from, either end, or a string to make a new line and add",
+                "add": "the content to add"
+            }
+        }
+    }
+}

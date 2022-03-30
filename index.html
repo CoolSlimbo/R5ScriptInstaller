@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <br>
+    <h1 class="text-center">Script Installer for R5Reloaded</h1>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-secondary" id="upload">Upload File</button>
+        <button id="startProcess" class="btn btn-primary">Start Install</button>
+    </div>
+
+
+    <script src="./primary.js"></script>
+</body>
+
+</html>
