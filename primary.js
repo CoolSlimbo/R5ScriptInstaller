@@ -1,16 +1,31 @@
 const { ipcRenderer } = require("electron")
 const wget = require('wget-improved')
 const fs = require('fs')
+const unzipper = require('unzipper')
 
 var uploadFile = document.getElementById("upload")
 var startProcess = document.getElementById("startProcess")
 let fileLocation = undefined;
 
+// Zip file infomation
 let fileSelf = undefined;
 let downloadLocation = undefined;
 let output = undefined;
 let modName = undefined;
+let upzipLocation  = undefined;
+
+// Files infomation
 let lengthOfFiles = undefined;
+let files = undefined;
+let fileName = undefined;
+let modFileLocation = undefined;
+let modApendType = undefined;
+let fileSectionName = undefined;
+
+// Append infomation
+let modAppendFileName = undefined;
+let modAppendFileLocation = undefined;
+let modAppendFileAddition = undefined;
 
 const outputDir = "./tempscripts"
 
@@ -65,8 +80,20 @@ startProcess.addEventListener('click', () => {
         typeof progress === 'number'
     });
 
-    lengthOfFiles = Object.keys(fileSelf.files).length
+    upzipLocation = `${outputDir}/${modName}`
+
+    fs.createReadStream(`${output}`)
+    .pipe(unzipper.Extract({ path: `${upzipLocation}` }));
 
 
     //Move corresponding files to corresponding sections
+
+    lengthOfFiles = Object.keys(fileSelf.files).length
+    files = fileSelf.files
+
+    for (var lengthLoop = lengthOfFiles; lengthLoop > lengthOfFiles; lengthLoop++) {
+        fileSectionName = `file${lengthLoop}`
+        
+    }
+
 })

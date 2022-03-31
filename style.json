@@ -12,7 +12,6 @@
             "custom": {
                 "name": "name of the file to append to",
                 "location": "starts with platform, then to the rest of the structure",
-                "from": "where does it append from, either end, or a string to make a new line and add",
                 "add": "the content to add"
             }
         }
