@@ -8,7 +8,7 @@
         "file1": {
             "fileName": "test",
             "location": "starts with platform, then to the rest of the structure",
-            "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field",
+            "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
             "custom": {
                 "name": "name of the file to append to",
                 "location": "starts with platform, then to the rest of the structure",

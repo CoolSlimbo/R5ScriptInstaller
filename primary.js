@@ -12,12 +12,12 @@ let fileSelf = undefined;
 let downloadLocation = undefined;
 let output = undefined;
 let modName = undefined;
-let upzipLocation  = undefined;
+let upzipLocation = undefined;
 
 // Files infomation
 let lengthOfFiles = undefined;
 let files = undefined;
-let fileName = undefined;
+let modFileName = undefined;
 let modFileLocation = undefined;
 let modApendType = undefined;
 let fileSectionName = undefined;
@@ -47,14 +47,14 @@ uploadFile.addEventListener('click', () => {
         console.log(`Canceled? ${data.canceled}`);
         fileLocation = data.filePaths.join(';')
         console.log(fileLocation)
-        fs.readFile(fileLocation, 'utf8' , (err, data) => {
+        fs.readFile(fileLocation, 'utf8', (err, data) => {
             if (err) {
-              console.error(err)
-              return
+                console.error(err)
+                return
             }
             fileSelf = data
-          })
-          
+        })
+
     })
 })
 
@@ -62,38 +62,46 @@ startProcess.addEventListener('click', () => {
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir);
     }
-    
+
     fileSelf = JSON.parse(fileSelf)
 
     console.log(fileSelf)
-    
+
     //Download and unzip zip file to ./tempscripts
     downloadLocation = fileSelf.genInfo.download
     modName = fileSelf.genInfo.name
     output = `${outputDir}/${modName}.zip`
     let download = wget.download(downloadLocation, output);
 
-    download.on('error', function(err) {
+    download.on('error', function (err) {
         console.log(err);
     });
     download.on('progress', function (progress) {
         typeof progress === 'number'
     });
+    download.on('end', function () {
+        upzipLocation = `${outputDir}/${modName}`
+        console.log(upzipLocation)
 
-    upzipLocation = `${outputDir}/${modName}`
-
-    fs.createReadStream(`${output}`)
-    .pipe(unzipper.Extract({ path: `${upzipLocation}` }));
+        fs.createReadStream(`${output}`)
+            .pipe(unzipper.Extract({ path: `${upzipLocation}` }));
 
 
-    //Move corresponding files to corresponding sections
+        //Move corresponding files to corresponding sections
 
-    lengthOfFiles = Object.keys(fileSelf.files).length
-    files = fileSelf.files
+        lengthOfFiles = Object.keys(fileSelf.files).length
+        files = fileSelf.files
 
-    for (var lengthLoop = lengthOfFiles; lengthLoop > lengthOfFiles; lengthLoop++) {
-        fileSectionName = `file${lengthLoop}`
-        
-    }
+        for (let i = 0; i < lengthOfFiles; i++) {
+            i = i + 1
+            fileSectionName = `file${i}`
+            //console.log(fileSectionName)
 
+            modFileName = files.fileSectionName.fileName
+            modFileLocation = files.fileSectionName.location
+            modApendType = files.fileSectionName.appends
+
+            fs.rename(upzipD)
+        }
+    });
 })
