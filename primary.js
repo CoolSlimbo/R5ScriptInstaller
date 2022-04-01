@@ -101,7 +101,16 @@ startProcess.addEventListener('click', () => {
             modFileLocation = files.fileSectionName.location
             modApendType = files.fileSectionName.appends
 
-            fs.rename(upzipD)
+            fs.rename(`${upzipLocation}/${modFileName}`, `./${modFileLocation}/${modFileName}`, (err) => {
+                if (err) throw err
+                console.log(`${modFileName} has been moved to ${modFileLocation}`)
+            })
+
+            if (modApendType !== `` || `wepCache` || `custom` || `multi`) {
+                console.log(`Error. Invalid append type. Expected wepCache, custom, multi, or nothing, not ${modApendType}`)
+            } if (modApendType === `wepCache`) {
+                fs.replace()
+            }
         }
     });
 })

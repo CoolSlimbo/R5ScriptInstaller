@@ -6,9 +6,10 @@
     },
     "files": {
         "file1": {
-            "fileName": "test",
-            "location": "starts with platform, then to the rest of the structure",
-            "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
+            "fileName": "77d2f48882bd8fe5205cfdbca9bc251b.jpg",
+            "location": "./platform/locationlol",
+            "appends.": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
+            "appends": "wepCache",
             "custom": {
                 "name": "name of the file to append to",
                 "location": "starts with platform, then to the rest of the structure",
