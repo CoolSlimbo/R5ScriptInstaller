@@ -111,11 +111,6 @@ startProcess.addEventListener('click', () => {
             modFileLocation = files[fileSectionName].location
             modApendType = files[fileSectionName].appends
 
-            modAppendFileName = files[fileSectionName].custom.name
-            modAppendFileLocation = files[fileSectionName].custom.location
-            modAppendFileAddition = files[fileSectionName].custom.add
-            modAppendFileFrom = files[fileSectionName].custom.from
-
             fs.rename(`${upzipLocation}/${modFileName}`, `${appDir}/${modFileLocation}/${modFileName}`, (err) => {
                 if (err) throw err
                 console.log(`${modFileName} has been moved to ${modFileLocation}`)
@@ -124,7 +119,7 @@ startProcess.addEventListener('click', () => {
             switch (modApendType) {
                 case "wepCache":
                     let options = {
-                        files: `${appDir}/${modFileLocation}_mapspawn.gnut`,
+                        files: `${appDir}/platform/scripts/vscripts/_mapspawn.gnut`,
                         from: /PrecacheWeapon\( \$"mp_weapon_frag_drone" \)/g,
                         to: `PrecacheWeapon( $"mp_weapon_frag_drone" )\n    PrecacheWeapon( $"${modFileName}" )`
                     }
@@ -140,6 +135,10 @@ startProcess.addEventListener('click', () => {
                     console.log(`Weapon Precached to _mapspawn.gnut`)
                     break;
                 case "custom":
+                    modAppendFileName = files[fileSectionName].custom.name
+                    modAppendFileLocation = files[fileSectionName].custom.location
+                    modAppendFileAddition = files[fileSectionName].custom.add
+                    modAppendFileFrom = files[fileSectionName].custom.from
                     if (modAppendFileFrom === ``) {
                         fs.appendFile(`${appDir}/${modAppendFileLocation}/${modAppendFileName}`, modAppendFileAddition, 'utf-8', (err) => {
                             if (err) throw err
