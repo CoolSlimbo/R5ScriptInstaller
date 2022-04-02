@@ -5,7 +5,7 @@
         "download": "The download location of the zip, make sure to use a permemnat download link directly to the zip, and that the zip has the files in the root of it."
     },
     "files": {
-        "file1": {
+        "file1": { 
             "fileName": "The name of your file, plus the extension.",
             "location": "The location, goes from platform. E.g platform/scripts/weapons.",
             "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
@@ -16,5 +16,7 @@
                 "from": "from, optional. Should be in regex. I.e. '/string/g' use escape characters in place of special characters, including brackets. If left blank appends to the end."
             }
         }
-    }
+    },
+
+    "notes": "To add more files. add file2 below file1, and so on. They must use file, then a number going up from 1, this is due to my laziness. This notes section is unnecessary. As of the first release, error's are not all caught, and there is no easy dialouge box to tell you."
 }
