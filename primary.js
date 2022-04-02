@@ -120,27 +120,50 @@ startProcess.addEventListener('click', () => {
                 console.log(`${modFileName} has been moved to ${modFileLocation}`)
             })
 
-            if (modApendType === `wepCache`) {
-                const options = {
-                    files: `${appDir}/${modFileLocation}_mapspawn.gnut`,
-                    from: /PrecacheWeapon\( \$"mp_weapon_frag_drone" \)/g,
-                    to: `PrecacheWeapon( $"mp_weapon_frag_drone )"\n\tPrecacheWeapon( $"${modFileName}" )\n`
-                }
+            switch (modApendType) {
+                case wepCache:
+                    let options = {
+                        files: `${appDir}/${modFileLocation}_mapspawn.gnut`,
+                        from: /PrecacheWeapon\( \$"mp_weapon_frag_drone" \)/g,
+                        to: `PrecacheWeapon( $"mp_weapon_frag_drone )"\n\tPrecacheWeapon( $"${modFileName}" )\n`
+                    }
 
-                replace(options)
-                    .then(results => {
-                        console.log('Replacement results:', results);
-                    })
-                    .catch(error => {
-                        console.error('Error occurred:', error);
-                    });
+                    replace(options)
+                        .then(results => {
+                            console.log('Replacement results:', results);
+                        })
+                        .catch(error => {
+                            console.error('Error occurred:', error);
+                        });
 
-                console.log(`Weapon Precached to _mapspawn.gnut`)
-            } if (modApendType === `custom`) {
-                
-            } if (modApendType !== `` || `wepCache` || `custom`) {
-                console.log(`Error. Invalid append type. Expected wepCache, custom, or nothing, not ${modApendType}`)
-            } 
+                    console.log(`Weapon Precached to _mapspawn.gnut`)
+                    break;
+                case custom:
+                    if (modAppendFileFrom === ``) {
+                        fs.appendFile(`${appDir}/${modAppendFileLocation}/${modAppendFileName}`, modAppendFileAddition, 'utf-8', (err) => {
+                            if (err) throw err
+                        })
+                        console.log(`Append to ${modAppendFileName} at ${modAppendFileLocation} succesful.`)
+                    } if (modAppendFileFrom !== ``)
+                        options = {
+                            files: `${appDir}/${modAppendFileLocation}/${modAppendFileName}`,
+                            from: modAppendFileFrom,
+                            to: modAppendFileAddition
+                        }
+                    replace(options)
+                        .then(results => {
+                            console.log('Replacement results:', results);
+                        }).catch(error => {
+                            console.error('Error occurred:', error);
+                        });
+                    break;
+                default:
+                    console.log(`Error. Invalid append type. Expected wepCache, custom, or nothing, not ${modApendType}`)
+                    break;
+            }
         }
+        console.log(`Mods installed`)
     });
 })
+
+

@@ -1,0 +1,20 @@
+{
+    "genInfo": {
+        "name": "This doesn't take a geneuis.",
+        "author": "Nor does this.",
+        "download": "The download location of the zip, make sure to use a permemnat download link directly to the zip, and that the zip has the files in the root of it."
+    },
+    "files": {
+        "file1": {
+            "fileName": "The name of your file, plus the extension.",
+            "location": "The location, goes from platform. E.g platform/scripts/weapons.",
+            "appends": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
+            "custom": {
+                "name": "name of the file to append to",
+                "location": "starts with platform, then to the rest of the structure",
+                "add": "The content to add",
+                "from": "from, optional. Should be in regex. I.e. '/string/g' use escape characters in place of special characters, including brackets. If left blank appends to the end."
+            }
+        }
+    }
+}

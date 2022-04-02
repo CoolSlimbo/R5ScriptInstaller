@@ -14,7 +14,7 @@
                 "name": "name of the file to append to",
                 "location": "starts with platform, then to the rest of the structure",
                 "add": "the content to add",
-                "from": "from, optional"
+                "from": "from, optional. Should be in regex. I.e. '/string/g' use escape characters in place of special characters, including brackets"
             }
         }
     }
