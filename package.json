@@ -1,11 +1,11 @@
 {
-  "name": "my-app",
-  "productName": "my-app",
+  "name": "R5Realoaded Script Installer",
+  "productName": "r5script-installer",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "R5Realoded script installer through .json files",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "electron start",
     "package": "electron-builder package",
     "make": "electron-builder make",
     "publish": "electron-builder publish",
@@ -30,11 +30,6 @@
     "wget-improved": "^3.3.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "electron": "18.0.0",
     "electron-builder": "^22.14.13"
   },

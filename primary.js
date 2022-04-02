@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron')
+const { shell } = require('electron')
 const wget = require('wget-improved')
 const fs = require('fs')
 const unzipper = require('unzipper')
@@ -167,3 +168,22 @@ startProcess.addEventListener('click', () => {
 })
 
 
+//Links variables
+var twitterLink = document.getElementById("twitter")
+var githubLink = document.getElementById("github")
+var discordServerLink = document.getElementById("discordServer")
+var discordPersonalLink = document.getElementById("discordPersonal")
+
+//Links
+twitterLink.addEventListener('click', () => {
+    shell.openExternal('https://twitter.com/CoolSlimbo')
+})
+githubLink.addEventListener('click', () => {
+    shell.openExternal('https://github.com/SuperSlimey5/R5ScriptInstaller')
+})
+discordServerLink.addEventListener('click', () => {
+    shell.openExternal("https://discord.gg/zvxbfBFY95")
+})
+discordPersonalLink.addEventListener('click', () => {
+    shell.openExternal("https://discordapp.com/users/711359126139175053")
+})
