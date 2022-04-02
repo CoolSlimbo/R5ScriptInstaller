@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { dialog } = require('electron')
+const appDir = process.env.PORTABLE_EXECUTABLE_DIR
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
@@ -13,6 +14,10 @@ const createWindow = () => {
     })
 
     win.loadFile('index.html')
+
+    win.webContents.on(`did-finish-load`, () => {
+        win.webContents.send(`current-dir`, appDir)
+    })
 }
 
 app.whenReady().then(() => {

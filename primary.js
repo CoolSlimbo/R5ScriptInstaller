@@ -1,11 +1,15 @@
-const { ipcRenderer } = require("electron")
+const { ipcRenderer } = require('electron')
 const wget = require('wget-improved')
 const fs = require('fs')
 const unzipper = require('unzipper')
+const replace = require('replace-in-file')
+
+let outputDir = undefined
 
 var uploadFile = document.getElementById("upload")
 var startProcess = document.getElementById("startProcess")
 let fileLocation = undefined;
+let appDir = undefined;
 
 // Zip file infomation
 let fileSelf = undefined;
@@ -26,8 +30,13 @@ let fileSectionName = undefined;
 let modAppendFileName = undefined;
 let modAppendFileLocation = undefined;
 let modAppendFileAddition = undefined;
+let modAppendFileFrom = undefined;
 
-const outputDir = "./tempscripts"
+ipcRenderer.on(`current-dir`, (event, message) => {
+    appDir = message
+    console.log(appDir)
+    outputDir = `${appDir}/tempscripts`
+})
 
 
 uploadFile.addEventListener('click', () => {
@@ -41,7 +50,7 @@ uploadFile.addEventListener('click', () => {
 
     ipcRenderer.send('open-file', {
         title: 'Title',
-        defaultPath: localStorage.getItem('./')
+        defaultPath: localStorage.getItem(`${appDir}`)
     })
     ipcRenderer.on('open-file-paths', (event, data) => {
         console.log(`Canceled? ${data.canceled}`);
@@ -97,20 +106,41 @@ startProcess.addEventListener('click', () => {
             fileSectionName = `file${i}`
             //console.log(fileSectionName)
 
-            modFileName = files.fileSectionName.fileName
-            modFileLocation = files.fileSectionName.location
-            modApendType = files.fileSectionName.appends
+            modFileName = files[fileSectionName].fileName
+            modFileLocation = files[fileSectionName].location
+            modApendType = files[fileSectionName].appends
 
-            fs.rename(`${upzipLocation}/${modFileName}`, `./${modFileLocation}/${modFileName}`, (err) => {
+            modAppendFileName = files[fileSectionName].custom.name
+            modAppendFileLocation = files[fileSectionName].custom.location
+            modAppendFileAddition = files[fileSectionName].custom.add
+            modAppendFileFrom = files[fileSectionName].custom.from
+
+            fs.rename(`${upzipLocation}/${modFileName}`, `${appDir}/${modFileLocation}/${modFileName}`, (err) => {
                 if (err) throw err
                 console.log(`${modFileName} has been moved to ${modFileLocation}`)
             })
 
-            if (modApendType !== `` || `wepCache` || `custom` || `multi`) {
-                console.log(`Error. Invalid append type. Expected wepCache, custom, multi, or nothing, not ${modApendType}`)
-            } if (modApendType === `wepCache`) {
-                fs.replace()
-            }
+            if (modApendType === `wepCache`) {
+                const options = {
+                    files: `${appDir}/${modFileLocation}_mapspawn.gnut`,
+                    from: /PrecacheWeapon\( \$"mp_weapon_frag_drone" \)/g,
+                    to: `PrecacheWeapon( $"mp_weapon_frag_drone )"\n\tPrecacheWeapon( $"${modFileName}" )\n`
+                }
+
+                replace(options)
+                    .then(results => {
+                        console.log('Replacement results:', results);
+                    })
+                    .catch(error => {
+                        console.error('Error occurred:', error);
+                    });
+
+                console.log(`Weapon Precached to _mapspawn.gnut`)
+            } if (modApendType === `custom`) {
+                
+            } if (modApendType !== `` || `wepCache` || `custom`) {
+                console.log(`Error. Invalid append type. Expected wepCache, custom, or nothing, not ${modApendType}`)
+            } 
         }
     });
 })

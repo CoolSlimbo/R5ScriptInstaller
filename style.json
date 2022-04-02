@@ -2,18 +2,19 @@
     "genInfo": {
         "name": "kwingman",
         "author": "author",
-        "download": "http://download1488.mediafire.com/thtybrsxgzvg/uh9cmb3ucjo1nlx/77d2f48882bd8fe5205cfdbca9bc251b.zip"
+        "download": "http://download1488.mediafire.com/2h924t538srg/uh9cmb3ucjo1nlx/77d2f48882bd8fe5205cfdbca9bc251b.zip"
     },
     "files": {
         "file1": {
             "fileName": "77d2f48882bd8fe5205cfdbca9bc251b.jpg",
-            "location": "./platform/locationlol",
+            "location": "platform/scripts/vscripts/",
             "appends.": "Optional, left blank won't append to any files. wepChache prechaches the filename in _mapspawn.gnut. custom uses the custom field, multi uses the custom field, with custom1, custom2, etc, follows custom structure",
             "appends": "wepCache",
             "custom": {
                 "name": "name of the file to append to",
                 "location": "starts with platform, then to the rest of the structure",
-                "add": "the content to add"
+                "add": "the content to add",
+                "from": "from, optional"
             }
         }
     }
