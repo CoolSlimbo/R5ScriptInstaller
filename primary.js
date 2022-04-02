@@ -4,13 +4,33 @@ const wget = require('wget-improved')
 const fs = require('fs')
 const unzipper = require('unzipper')
 const replace = require('replace-in-file')
+const bootstrap = require('bootstrap')
+window.$ = window.jQuery = require('jquery')
+
+let genJsonFileNumber = 1;
+
+let htmlAdd = undefined;
+let append = undefined;
+
 
 let outputDir = undefined
 
 var uploadFile = document.getElementById("upload")
 var startProcess = document.getElementById("startProcess")
+var addHtml = document.getElementById("createMore")
 let fileLocation = undefined;
 let appDir = undefined;
+
+// For bootstrap
+/* global bootstrap: false */
+(function () {
+    'use strict'
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+})()
+
 
 // Zip file infomation
 let fileSelf = undefined;
@@ -32,6 +52,11 @@ let modAppendFileName = undefined;
 let modAppendFileLocation = undefined;
 let modAppendFileAddition = undefined;
 let modAppendFileFrom = undefined;
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})
 
 ipcRenderer.on(`current-dir`, (event, message) => {
     appDir = message
@@ -185,4 +210,77 @@ discordServerLink.addEventListener('click', () => {
 })
 discordPersonalLink.addEventListener('click', () => {
     shell.openExternal("https://discordapp.com/users/711359126139175053")
+})
+
+
+addHtml.addEventListener('click', () =>{
+    const newDiv = document.createElement("div")
+    append = document.getElementById(`file${genJsonFileNumber}`)
+    genJsonFileNumber++
+    htmlAdd = `<br>
+    <div class="container border rounded border-success" id="file${genJsonFileNumber}">
+    <p id="fileNumber">File ${genJsonFileNumber}<button type="button" class="btn-close float-end" aria-label="Close" id="closeButton${genJsonFileNumber}"></button></p>
+    <div class="mb-2">
+        <label for="fileName${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+            data-bs-placement="right" title="Should include file extension.">File Name</label>
+        <input type="text" class="form-control" placeholder="mp_weapon_dope.txt" id="fileName${genJsonFileNumber}">
+    </div>
+    <div class="mb-2">
+        <label for="location${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+            data-bs-placement="right"
+            title="From platform. E.g. platform/scipts/weapons">Location</label>
+        <input type="text" class="form-control" placeholder="I'll make this a file select lol"
+            id="location${genJsonFileNumber}">
+    </div>
+    <div class="mb-2">
+        <label for="appends${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+            data-bs-placement="right" title="">Append Type</label>
+        <select name="Append Options" id="appendTypes" class="form-select">
+            <option value="1">Nothing</option>
+            <option value="2">Weapon Precache - Automatically precaches the weapon.</option>
+            <option value="3">Custom - Use below values for custom.</option>
+        </select>
+        <br>
+        <div class="container border rounded border-dark" id="">
+            <h6>Custom Append Values</h6>
+            <div class="mb-2">
+                <label for="appendName${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Should include file extension.">Append File
+                    Name</label>
+                <input type="text" class="form-control" placeholder="I honestly don't know"
+                    id="appendName${genJsonFileNumber}">
+            </div>
+            <div class="mb-2">
+                <label for="appendLocation${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="Goes from path">File Name</label>
+                <input type="text" class="form-control" placeholder="platform/scripts/vscripts"
+                    id="appendLocation${genJsonFileNumber}">
+            </div>
+            <div class="mb-2">
+                <label for="appendAdd${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+                    data-bs-placement="right" title="">Append Addition</label>
+                <input type="text" class="form-control" placeholder="Can be anythign lol"
+                    id="appendAdd${genJsonFileNumber}">
+            </div>
+            <div class="mb-2">
+                <label for="appendFrom${genJsonFileNumber}" class="form-label" data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    title="Where to append from. This is made on a new line">File Name</label>
+                <input type="text" class="form-control" placeholder="Anything, once again"
+                    id="appendFrom${genJsonFileNumber}">
+            </div>
+        </div>
+    </div>
+    </div>`
+
+    newDiv.innerHTML = htmlAdd
+    append.parentNode.append(newDiv)
+
+    addHtml.parentNode.appendChild(document.getElementById("createMore"))
+
+    const closeButton = document.getElementById(`closeButton${genJsonFileNumber}`)
+
+    closeButton.addEventListener('click', () => {
+        closeButton.parentNode.parentNode.remove()
+    })
 })

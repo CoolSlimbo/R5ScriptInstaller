@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';  img-src 'self' data: *"">
+    <meta http-equiv=" X-Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; img-src 'self' data: *">
     <title>R5Reloaded Script Installer</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -18,25 +19,125 @@
     <div class="d-grid gap-2 col-6 mx-auto">
         <button class="btn btn-secondary" id="upload">Upload File</button>
         <button id="startProcess" class="btn btn-primary">Start Install</button>
+        <button class="btn btn-warning" data-bs-target="#generate-modal" data-bs-toggle="modal">Generate .json</button>
     </div>
 
     <div class="container">
         <br>
         <h2 class="display-4 text-center">Server browser coming soon!</h1>
-        <br>
+            <br>
     </div>
 
     <div class="d-grid gap-2 col-8 mx-auto">
         <br>
         <div class="btn-group" role="group">
-            <button class="btn btn-sm btn-primary" id="twitter"><i class="bi bi-twitter"></i> Twitter</button>
-            <button class="btn btn-sm btn-primary" id="github"><i class="bi bi-github"></i> Github</button>
-            <button class="btn btn-sm btn-primary" id="discordServer"><i class="bi bi-discord"></i> Discord Server</button>
-            <button class="btn btn-sm btn-primary" id="discordPersonal"><i class="bi bi-hash"></i> Discord Personal</button>
-        </div>      
+            <button class="btn btn-sm btn-dark" id="twitter"><i class="bi bi-twitter"></i> Twitter</button>
+            <button class="btn btn-sm btn-dark" id="github"><i class="bi bi-github"></i> Github</button>
+            <button class="btn btn-sm btn-dark" id="discordServer"><i class="bi bi-discord"></i> Discord Server</button>
+            <button class="btn btn-sm btn-dark" id="discordPersonal"><i class="bi bi-hash"></i> Discord
+                Personal</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="generate-modal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generate .json</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h6>General Infomation</h6>
+                        <div class="border rounded border-primary border-2">
+                            <div class="mb-2">
+                                <label for="modName" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="Currently unused.">Mod Name</label>
+                                <input type="text" class="form-control" placeholder="Cool Mod" id="modName">
+                            </div>
+                            <div class="mb-2">
+                                <label for="authorName" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="Currently unused.">Author</label>
+                                <input type="text" class="form-control" placeholder="CoolDude123" id="authorName">
+                            </div>
+                            <div class="mb-2">
+                                <label for="downloadLocation" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right"
+                                    title="Should be static, and directly to .zip. No mediafire links. Use github for ease.">Download
+                                    Location</label>
+                                <input type="text" class="form-control" placeholder="https://www.example.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>File Specific Infomation</h6>
+                        <div class="container border rounded border-success" id="file1">
+                            <p id="fileNumber">File 1<button type="button" class="btn-close float-end" disabled aria-label="Close" id="closeButton"></button></p>
+                            <div class="mb-2">
+                                <label for="fileName" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="Should include file extension.">File Name</label>
+                                <input type="text" class="form-control" placeholder="mp_weapon_dope.txt" id="fileName">
+                            </div>
+                            <div class="mb-2">
+                                <label for="location" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right"
+                                    title="From platform. E.g. platform/scipts/weapons">Location</label>
+                                <input type="text" class="form-control" placeholder="I'll make this a file select lol"
+                                    id="location">
+                            </div>
+                            <div class="mb-2">
+                                <label for="appends" class="form-label" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="">Append Type</label>
+                                <select name="Append Options" id="appendTypes" class="form-select">
+                                    <option value="1">Nothing</option>
+                                    <option value="2">Weapon Precache - Automatically precaches the weapon.</option>
+                                    <option value="3">Custom - Use below values for custom.</option>
+                                </select>
+                                <br>
+                                <div class="container border rounded border-dark" id="">
+                                    <h6>Custom Append Values</h6>
+                                    <div class="mb-2">
+                                        <label for="appendName" class="form-label" data-bs-toggle="tooltip"
+                                            data-bs-placement="right" title="Should include file extension.">Append File
+                                            Name</label>
+                                        <input type="text" class="form-control" placeholder="I honestly don't know"
+                                            id="appendName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="appendLocation" class="form-label" data-bs-toggle="tooltip"
+                                            data-bs-placement="right" title="Goes from path">File Name</label>
+                                        <input type="text" class="form-control" placeholder="platform/scripts/vscripts"
+                                            id="appendLocation">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="appendAdd" class="form-label" data-bs-toggle="tooltip"
+                                            data-bs-placement="right" title="">Append Addition</label>
+                                        <input type="text" class="form-control" placeholder="Can be anythign lol"
+                                            id="appendAdd">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="appendFrom" class="form-label" data-bs-toggle="tooltip"
+                                            data-bs-placement="right"
+                                            title="Where to append from. This is made on a new line">File Name</label>
+                                        <input type="text" class="form-control" placeholder="Anything, once again"
+                                            id="appendFrom">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="createMore" class="btn btn-danger mt-1">Create Additional File Sections</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="generateJson" type="button" class="btn btn-primary">Generate</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./primary.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>
