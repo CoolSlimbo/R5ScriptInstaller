@@ -1,6 +1,6 @@
 {
   "name": "r5realoaded_script_installer",
-  "productName": "r5script-installer",
+  "productName": "R5Reloaded Script Installer",
   "version": "1.0.0",
   "description": "R5Realoded script installer through .json files",
   "main": "main.js",

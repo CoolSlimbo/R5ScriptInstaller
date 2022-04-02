@@ -122,11 +122,11 @@ startProcess.addEventListener('click', () => {
             })
 
             switch (modApendType) {
-                case wepCache:
+                case "wepCache":
                     let options = {
                         files: `${appDir}/${modFileLocation}_mapspawn.gnut`,
                         from: /PrecacheWeapon\( \$"mp_weapon_frag_drone" \)/g,
-                        to: `PrecacheWeapon( $"mp_weapon_frag_drone )"\n\tPrecacheWeapon( $"${modFileName}" )\n`
+                        to: `PrecacheWeapon( $"mp_weapon_frag_drone" )\n    PrecacheWeapon( $"${modFileName}" )`
                     }
 
                     replace(options)
@@ -139,7 +139,7 @@ startProcess.addEventListener('click', () => {
 
                     console.log(`Weapon Precached to _mapspawn.gnut`)
                     break;
-                case custom:
+                case "custom":
                     if (modAppendFileFrom === ``) {
                         fs.appendFile(`${appDir}/${modAppendFileLocation}/${modAppendFileName}`, modAppendFileAddition, 'utf-8', (err) => {
                             if (err) throw err
